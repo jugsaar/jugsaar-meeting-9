@@ -24,7 +24,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * 
+ *
  * @author Frank Dietrich <Frank.Dietrich@gmx.li>
  */
 public class PathDemo {
@@ -40,10 +40,11 @@ public class PathDemo {
 
     public static void main(String[] args) throws IOException {
 
-        path = FileSystems.getDefault().getPath("logs", "access.log");
+        path = FileSystems.getDefault().getPath("resources/dir1/../dir3", "file3");
         System.out.println(path);
         System.out.println(path.getParent());
         System.out.println(path.toAbsolutePath());
+        System.out.println(path.toRealPath());
         System.out.println(path.toRealPath(LinkOption.NOFOLLOW_LINKS));
 
         String absolutePath = "/tmp/jug-saarland";
