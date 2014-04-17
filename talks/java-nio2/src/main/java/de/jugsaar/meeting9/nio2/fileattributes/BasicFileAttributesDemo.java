@@ -13,17 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package de.jugsaar.meeting9.nio2.fileattributes;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Map;
 
 /**
- * 
+ *
  * @author Frank Dietrich <Frank.Dietrich@gmx.li>
  */
 public class BasicFileAttributesDemo {
@@ -42,6 +43,13 @@ public class BasicFileAttributesDemo {
             System.out.printf(outFormat, "isDirectory", attr.isDirectory());
             System.out.printf(outFormat, "isSymbolicLink", attr.isSymbolicLink());
             System.out.printf(outFormat, "size", attr.size());
+
+            System.out.printf("%n### bulk access to file attributes%n");
+            Map<String, Object> attrBulk;
+            attrBulk = Files.readAttributes(path, "basic:*", NOFOLLOW_LINKS);
+            for (String key : attrBulk.keySet()) {
+                System.out.printf("%s:%-16s: %s%n", "basic", key, attrBulk.get(key));
+            }
         } catch (IOException ex) {
             System.err.println("failed to obtain BasicFileAttributes " + ex.getMessage());
         }
