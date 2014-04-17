@@ -17,6 +17,7 @@ package de.jugsaar.meeting9.nio2.mime;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
@@ -31,14 +32,18 @@ public class ProbeContentTypeDemo {
             "resources/NonClass.class"
         };
 
+        System.out.printf("### default FileTypeDetector implementation%n");
+        System.out.printf("class: %s%n%n", sun.nio.fs.DefaultFileTypeDetector.create().getClass());
+
         for (String pathName : pathNames) {
             try {
+                Path path = Paths.get(pathName);
                 // As the content type is determind by the platform's default file type detector,
                 // it might be fooled.
                 // For example, if the detector determines a file's content type to be
                 // 'application/x-java' only based on the '.class' extension.
-                String mimeType = Files.probeContentType(Paths.get(pathName));
-                System.out.printf("%s: %s%n", pathName, mimeType);
+                String mimeType = Files.probeContentType(path);
+                System.out.printf("%s: %s (%,d bytes)%n", pathName, mimeType, Files.size(path));
             } catch (IOException ex) {
                 ex.printStackTrace(System.err);
             }
