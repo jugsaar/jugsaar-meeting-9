@@ -186,6 +186,12 @@ public class WatchDir {
         }
     }
 
+    /**
+     * Print some information about the catched event and the impacted Path object.
+     *
+     * @param child the {@link Path} object for which the event was triggered
+     * @param event the catched event
+     */
     private void printEvent(Path child, WatchEvent<?> event) {
         if (event.kind() != ENTRY_DELETE) {
             try {
