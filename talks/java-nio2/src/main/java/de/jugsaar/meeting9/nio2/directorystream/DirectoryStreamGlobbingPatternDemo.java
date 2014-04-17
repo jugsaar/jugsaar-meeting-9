@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package de.jugsaar.meeting9.nio2.directorystream;
 
 import java.io.File;
@@ -25,7 +24,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * 
+ *
  * @author Frank Dietrich <Frank.Dietrich@gmx.li>
  */
 public class DirectoryStreamGlobbingPatternDemo {
@@ -35,12 +34,10 @@ public class DirectoryStreamGlobbingPatternDemo {
         // since 1.2
         System.out.printf("### using simple file name filtering%n");
         File dir = new File("resources/");
-        if (dir != null) {
-            for (File entry : dir.listFiles()) {
-                // should not be used that way
-                if (entry.getName().endsWith(".zip") || entry.getName().endsWith(".txt")) {
-                    System.out.printf("%-5s: %s%n", "entry", entry.getName());
-                }
+        for (File entry : dir.listFiles()) {
+            // should not be used that way
+            if (entry.getName().endsWith(".zip") || entry.getName().endsWith(".txt")) {
+                System.out.printf("%-5s: %s%n", "entry", entry.getName());
             }
         }
 
@@ -48,10 +45,7 @@ public class DirectoryStreamGlobbingPatternDemo {
         FileFilter globbingFilter = new FileFilter() {
             @Override
             public boolean accept(File pathname) {
-                if (pathname.getName().endsWith(".zip") || pathname.getName().endsWith(".txt")) {
-                    return true;
-                }
-                return false;
+                return pathname.getName().endsWith(".zip") || pathname.getName().endsWith(".txt");
             }
         };
         if (dir != null) {
